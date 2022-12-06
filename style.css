@@ -1,6 +1,19 @@
+/*  Colors
+ #efebe6
+ #4F5755
+ #222927
+ #30A766
+ #4D7B6E
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  background-color: aqua;
-  color: white;
+  background-color: #efebe6;
+  color: #222927;
 }
 
 .user_1 {
@@ -9,4 +22,23 @@ body {
 
 .user_2 {
   background-color: red;
+}
+
+#show-password {
+  display: none;
+}
+
+#password-eye {
+  cursor: pointer;
+  display: inline;
+  background-color: white;
+  font-size: 1.2em;
+}
+
+form {
+  background-color: #30a766;
+}
+
+form label {
+  display: block;
 }

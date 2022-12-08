@@ -2,7 +2,11 @@ const knex = require("./knex");
 const bcrypt = require("bcrypt");
 
 //Resgisters New User
-function addUser(user) {
+async function addUser(user) {
+  const isNameTaken = await checkUser(user);
+  if (isNameTaken.length > 0) {
+    return "Invalid";
+  }
   return knex("user").insert(user);
 }
 
@@ -43,7 +47,7 @@ function addSession(user_id) {
   );
 }
 
-//Used to make cookies and check for existing sessions of user
+//Used to make sessions and check for existing sessions of user
 function sessionData(user_id) {
   return knex("sessions").where("user_id", user_id);
 }
@@ -53,4 +57,4 @@ function deleteSession(user_id) {
   return knex("sessions").where("user_id", user_id).del();
 }
 
-module.exports = { addUser, login, addSession, sessionData };
+module.exports = { addUser, login, sessionData };

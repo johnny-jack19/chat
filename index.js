@@ -1,63 +1,64 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
-const cookieParser = require("cookie-parser");
 const db = require("./db/pullChat");
 const auth = require("./db/auth");
-
-const app = express();
-app.use(cookieParser());
-app.use(cors());
-
 const PORT = process.env.PORT || 3000;
 
+const app = express();
+const corsOptions = {
+  origin: "http://127.0.0.1:5500",
+  credentials: true,
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-//Test
-app.get("/sample", checkCookie, async (req, res) => {
-  const results = await db.pullChat();
+//Gets user list
+app.get("/userlist", checkUserCall, async (req, res) => {
+  const results = await db.userList(req.headers["user"]);
   res.status(200).json({ results });
 });
 
-app.post("/test", async (req, res) => {
-  const results = await db.makeTable();
+//Pull chat from table
+app.get("/:user/:friend", checkSession, async (req, res) => {
+  const results = await db.pullChat(req.params.user, req.params.friend);
+  res.status(200).json({ results });
+});
+
+//Add message
+app.post("/message/:user/:friend", checkSession, async (req, res) => {
+  const results = await db.addMessage(
+    req.params.user,
+    req.params.friend,
+    req.body
+  );
   res.status(201).json({ results });
 });
 
-app.post("/message/:table", async (req, res) => {
-  const results = await db.addMessage(req.params.table, req.body);
-  res.status(201).json({ results });
-});
-
-//Users
+//Add user
 app.post("/users", async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.pass, 10);
     const results = await auth.addUser({
-      user_name: req.body.userName,
+      user_name: req.body.userName.toUpperCase(),
       pass: hashedPassword,
     });
-    res.status(201).send(results);
+    if (results === "Invalid") {
+      res.status(401).send();
+    } else {
+      res.status(201).send(results);
+    }
   } catch {
     res.status(500).send();
   }
 });
 
-// app.post("/session", async (req, res) => {
-//   try {
-//     const results = await auth.addSession(52);
-//     const cookieInfo = await auth.cookieData(52);
-//     res.status(201).send(cookieInfo);
-//   } catch {
-//     res.status(500).send();
-//   }
-// });
-
+//Login
 app.post("/users/login", async (req, res) => {
   try {
     const results = await auth.login({
-      user_name: req.body.userName,
+      user_name: req.body.userName.toUpperCase(),
       pass: req.body.pass,
     });
     if (results[0] === "No user with that name") {
@@ -67,25 +68,53 @@ app.post("/users/login", async (req, res) => {
     } else if (results[0] === "Error") {
       res.status(500).send("Error");
     } else {
-      res.cookie("user", results[0]["user_id"]);
-      res.cookie("session", results[0]["session_id"]);
-      res.send("Cookies are set");
+      res.status(200).send({
+        user: results[0]["user_id"],
+        session: results[0]["session_id"],
+      });
     }
   } catch {
     res.status(500).send();
   }
 });
 
-async function checkCookie(req, res, next) {
-  const authCookies = await req.cookies;
-  if (!authCookies.user || !authCookies.session) {
-    res.status(401).send("Please sign in");
+//Middleware that checks if logged in
+async function checkSession(req, res, next) {
+  const authSession = {
+    user: req.headers["user"],
+    session: req.headers["session"],
+  };
+  if (authSession.user === "null" || authSession.session === "null") {
+    res.status(401).send();
     return;
   }
-  const sessionInfo = await auth.sessionData(authCookies.user);
+  if (authSession.user != req.params.user) {
+    res.status(401).send();
+    return;
+  }
+  const sessionInfo = await auth.sessionData(authSession.user);
   if (sessionInfo.length === 0) {
-    res.status(401).send("Please sign in");
-  } else if (sessionInfo[0]["session_id"] === authCookies.session) {
+    res.status(401).send();
+  } else if (sessionInfo[0]["session_id"] === authSession.session) {
+    next();
+  } else {
+    res.status(500).send("Error");
+  }
+}
+
+async function checkUserCall(req, res, next) {
+  const authSession = {
+    user: req.headers["user"],
+    session: req.headers["session"],
+  };
+  if (authSession.user === "null" || authSession.session === "null") {
+    res.status(401).send();
+    return;
+  }
+  const sessionInfo = await auth.sessionData(authSession.user);
+  if (sessionInfo.length === 0) {
+    res.status(401).send();
+  } else if (sessionInfo[0]["session_id"] === authSession.session) {
     next();
   } else {
     res.status(500).send("Error");

@@ -1,0 +1,84 @@
+/*  Colors
+ background-color: #efebe6;
+ background-color: #4F5755;
+ background-color: #222927;
+ background-color: #30A766;
+ background-color: #4D7B6E;
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #efebe6;
+  color: #222927;
+}
+
+#show-password {
+  display: none;
+}
+
+#password-eye {
+  cursor: pointer;
+  display: inline;
+  background-color: white;
+  font-size: 1.2em;
+}
+
+form {
+  background-color: #30a766;
+}
+
+form label {
+  display: block;
+}
+
+.user-div {
+  background-color: #222927;
+  font-size: larger;
+  color: white;
+  margin: 10px;
+  box-shadow: black 4px 3px 5px;
+  border: #222927 solid 2px;
+  width: 50%;
+}
+
+.selected {
+  background-color: #30a766;
+  box-shadow: #4d7b6e 4px 3px 5px;
+}
+
+.chat-text {
+  color: white;
+  padding: 0.5em;
+  font-size: larger;
+  width: 85%;
+  margin-bottom: 0.5em;
+  border-radius: 15px 15px 15px 15px;
+}
+
+.my-chat {
+  background-color: #4f5755;
+  margin-right: 1em;
+  margin-left: auto;
+}
+
+.friend-chat {
+  display: inline-block;
+  margin-right: auto;
+  background-color: #30a766;
+}
+
+.friend-icon {
+  display: inline-block;
+  background-color: #065a42;
+  color: white;
+  font-size: x-large;
+  line-height: 1.5em;
+  width: 1.5em;
+  margin-left: 0.5em;
+  text-align: center;
+  border-radius: 50%;
+}

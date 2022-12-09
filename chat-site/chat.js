@@ -6,7 +6,6 @@ const loginPage = "http://127.0.0.1:5500/chat-site/login.html";
 function getUsers() {
   fetch(url + "/userlist", {
     method: "GET",
-    credentials: "include",
     headers: makeHeaders(),
   })
     .then((res) => {
@@ -26,7 +25,6 @@ function getUsers() {
 function getChat(user, friend) {
   fetch(url + "/" + user + "/" + friend, {
     method: "GET",
-    credentials: "include",
     headers: makeHeaders(),
   })
     .then((res) => {
@@ -112,11 +110,13 @@ function showUsers() {
         selectedUser.classList.remove("selected");
       }
       currentChatSelected = userDiv.id;
+      messageText.value = "";
       let selectedUser = document.getElementById(currentChatSelected);
       selectedUser.classList.add("selected");
       getChat(sessionStorage.getItem("user"), currentChatSelected);
       setTimeout(() => {
         displayChat();
+        scrollToBottom();
       }, 1000);
     });
   });
@@ -165,15 +165,31 @@ function makeMessage() {
   messageText.value = "";
   sendMessage(message);
   chatBox.innerHTML += `
-        <p class="my-chat chat-text">${message.message}</p>
-        `;
+  <p class="my-chat chat-text">${message.message}</p>
+  `;
+  scrollToBottom();
 }
+
+messageText.addEventListener("keydown", (e) => {
+  if (e.code === "Enter") {
+    makeMessage();
+  }
+});
 
 setInterval(() => {
   if (currentChatSelected) {
+    const newMessage = chatData.length;
     getChat(sessionStorage.getItem("user"), currentChatSelected);
     setTimeout(() => {
       displayChat();
+      if (chatData.length > newMessage) {
+        scrollToBottom();
+      }
     }, 1000);
   }
 }, 15000);
+
+const chatContainer = document.getElementById("chat-container");
+function scrollToBottom() {
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+}

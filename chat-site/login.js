@@ -17,7 +17,6 @@ function login(loginInfo) {
   fetch(url + `/users/login`, {
     method: "POST",
     mode: "cors",
-    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
@@ -34,6 +33,8 @@ function login(loginInfo) {
           .then(() => {
             location.assign("http://127.0.0.1:5500/chat-site");
           });
+      } else {
+        document.getElementById("reg-error").classList.remove("hidden");
       }
     })
     .then((res) => res.json())

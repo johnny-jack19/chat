@@ -1,34 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/ed5bf3e9b7.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Crimson+Text|Unica+One"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Login</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://kit.fontawesome.com/ed5bf3e9b7.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="./style.css" />
-  <title>Login</title>
-</head>
-
-<body>
-  <h1>Login</h1>
-  <form id="login-form">
-    <label for="userName">
-      User name
-      <input type="text" id="userName" name="userName" placeholder="Enter your user name" />
-    </label>
-    <label for="pass">
-      Password
-      <input type="password" id="pass" name="pass" placeholder="Enter your password" />
-      <label for="show-password" id="password-eye">
-        <i class="fa-regular fa-eye"></i>
+  <body>
+    <h1>Login</h1>
+    <div id="reg-error" class="hidden">Invalid user name or password</div>
+    <form id="login-form">
+      <label for="userName">
+        <p>User name</p>
+        <input
+          type="text"
+          id="userName"
+          name="userName"
+          placeholder="Enter your user name"
+        />
       </label>
-      <input id="show-password" type="checkbox" onclick="showPassword()" />
-    </label>
-    <button id="submit-login">Submit</button>
-  </form>
-  <p><a href="http://127.0.0.1:5500/chat-site/register.html">Sign up here</a></p>
-  <script src="./login.js"></script>
-</body>
-
+      <label for="pass">
+        <p>Password</p>
+        <input
+          class="login-pass"
+          type="password"
+          id="pass"
+          name="pass"
+          placeholder="Enter your password"
+        />
+        <label for="show-password" id="password-eye">
+          <i id="password-icon" class="fa-regular fa-eye"></i>
+        </label>
+        <input id="show-password" type="checkbox" onclick="showPassword()" />
+      </label>
+      <button id="submit-login">Submit</button>
+    </form>
+    <p id="sign-up">
+      Don't have an account?
+      <a href="http://127.0.0.1:5500/chat-site/register.html"
+        ><button id="sign-up-button">Sign Up</button></a
+      >
+    </p>
+    <script src="./login.js"></script>
+  </body>
 </html>

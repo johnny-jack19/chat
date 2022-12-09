@@ -6,7 +6,6 @@ function register(regInfo) {
   fetch(url + `/users`, {
     method: "POST",
     mode: "cors",
-    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },

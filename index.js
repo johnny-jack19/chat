@@ -118,5 +118,6 @@ async function checkUserCall(req, res, next) {
 }
 
 app.listen(PORT, () => {
+  console.log(process.env.USER_NAME);
   console.log("Server is running on Port " + PORT);
 });

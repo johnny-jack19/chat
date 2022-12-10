@@ -34,7 +34,6 @@ submitButton.addEventListener("click", (e) => {
 const pass = document.getElementById("pass");
 const authPass = document.getElementById("auth-pass");
 function submitRegister() {
-  console.log("Submit");
   if (!document.getElementById("userName").value) {
     errorBox.innerHTML = "User name can't be null";
     errorBox.classList.remove("hidden");

@@ -109,6 +109,7 @@ function showUsers() {
         let selectedUser = document.getElementById(currentChatSelected);
         selectedUser.classList.remove("selected");
       }
+      toggleUsersOff();
       currentChatSelected = userDiv.id;
       messageText.value = "";
       let selectedUser = document.getElementById(currentChatSelected);
@@ -131,7 +132,7 @@ function displayChat() {
       ${addIcon(chatData[i]["user_id"])}
         <p class="${sortChat(chatData[i]["user_id"])} chat-text">${
       chatData[i].message
-    }</p>
+    }</p><p></p>
         `;
   }
 }
@@ -150,7 +151,7 @@ function addIcon(userID) {
   if (userID == sessionStorage.getItem("user")) {
     return ``;
   } else {
-    return `<br /><span class="friend-icon">${
+    return `<span class="friend-icon">${
       document.getElementById(currentChatSelected).innerHTML[0]
     }</span>`;
   }
@@ -197,5 +198,15 @@ function scrollToBottom() {
 function logout() {
   sessionStorage.removeItem("user");
   sessionStorage.removeItem("session");
-  getChat();
+  location.reload();
+}
+
+function toggleUsersOn() {
+  userList.classList.remove("mobile-hidden");
+  chatContainer.classList.add("mobile-hidden");
+}
+
+function toggleUsersOff() {
+  userList.classList.add("mobile-hidden");
+  chatContainer.classList.remove("mobile-hidden");
 }

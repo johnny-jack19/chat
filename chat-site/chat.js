@@ -193,3 +193,9 @@ const chatContainer = document.getElementById("chat-container");
 function scrollToBottom() {
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
+
+function logout() {
+  sessionStorage.removeItem("user");
+  sessionStorage.removeItem("session");
+  getChat();
+}

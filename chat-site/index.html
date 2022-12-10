@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chat Box</title>
-    <link
-      href="https://fonts.googleapis.com/css?family=Crimson+Text|Unica+One"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./style.css" />
-  </head>
 
-  <body>
-    <h1>Chat Box</h1>
-    <div id="main-container">
-      <div id="user-list"></div>
-      <div id="chat-container">
-        <div id="chat-box"></div>
-        <div id="message-container">
-          <input type="text" id="message-text" />
-          <button id="submit-message" onclick="makeMessage()">Send</button>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat Box</title>
+  <link href="https://fonts.googleapis.com/css?family=Crimson+Text|Unica+One" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <h1>Chat Box</h1>
+  <button id="logout" onclick="logout()">Log Out</button>
+  <div id="main-container">
+    <div id="user-list"></div>
+    <div id="chat-container">
+      <div id="chat-box"></div>
+      <div id="message-container">
+        <input type="text" id="message-text" />
+        <button id="submit-message" onclick="makeMessage()">Send</button>
       </div>
     </div>
-    <script src="./chat.js"></script>
-  </body>
+  </div>
+  <script src="./chat.js"></script>
+</body>
+
 </html>

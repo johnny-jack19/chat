@@ -1,5 +1,5 @@
 # Chat
-This is the api to the messenger website found here:\
+This is the API to the messenger website found here:\
 Live site: [https://jackson-chat.herokuapp.com/](https://jackson-chat.herokuapp.com/)\
 GitHub: [https://github.com/johnny-jack19/chat-box](https://github.com/johnny-jack19/chat-box)
 

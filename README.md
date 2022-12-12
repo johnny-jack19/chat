@@ -3,7 +3,7 @@ This is the api to the messenger website found here:\
 Live site: [https://jackson-chat.herokuapp.com/](https://jackson-chat.herokuapp.com/)\
 GitHub: [https://github.com/johnny-jack19/chat-box](https://github.com/johnny-jack19/chat-box)
 
-The url for this api is "https://jackson-chat-api.herokuapp.com"\
+The url for this api is "https://jackson-chat-api.herokuapp.com" \
 It connects to a database to store users, sessions, and messages between users.
 
 ## POST "users/login"
